@@ -10,12 +10,23 @@ public class Funcionario extends Pessoa{
     	super();
     	setTipoPessoa("funcionario");
     }
-      
+    
+    
+
+	@Override
+	public void setCpf(String cpf) {
+		// TODO Auto-generated method stub
+		super.setCpf(cpf);
+		setNomeUsuario();
+	}
+
+
+
 	public String getNomeUsuario() {
 		return nomeUsuario;
 	}
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
+	public void setNomeUsuario() {
+		this.nomeUsuario = this.getCpf();
 	}
 	public String getSenha() {
 		return senha;

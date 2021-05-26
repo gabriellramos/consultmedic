@@ -1,6 +1,5 @@
 package com.consulmedic.dao;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,15 +8,17 @@ import com.consulmedic.model.*;
 
 public class RepositorioFuncionario implements IRepositorioFuncionario {
 	List<Funcionario> listaFuncionarios = new ArrayList<>();
-	
+
 	@Override
 	public boolean salvaFuncionario(Funcionario funcionario) {
+
 		try {
 			boolean cadastrado = false;
 			for (Funcionario f : listaFuncionarios) {
-				if (funcionario.getCpf() == f.getCpf()) 
+				if (funcionario.getCpf() == f.getCpf()) {
 					cadastrado = true;
-				else
+					break;
+				} else
 					cadastrado = false;
 			}
 			if (!cadastrado)
@@ -32,7 +33,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 
 	@Override
 	public boolean deletarFuncionarioPorCPF(String cpf) {
-		for (Funcionario funcionario: listaFuncionarios) {
+		for (Funcionario funcionario : listaFuncionarios) {
 			if (funcionario.getCpf() == cpf) {
 				listaFuncionarios.remove(funcionario);
 				return true;
@@ -49,7 +50,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 
 	@Override
 	public boolean alteraFuncionario(Funcionario funcionario) {
-		for (Funcionario f: listaFuncionarios) {
+		for (Funcionario f : listaFuncionarios) {
 			if (funcionario.getCpf() == f.getCpf()) {
 				listaFuncionarios.remove(f);
 				listaFuncionarios.add(funcionario);
@@ -62,7 +63,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 	@Override
 	public boolean login(String username, String senha) {
 		for (Funcionario f : listaFuncionarios) {
-			if (f.getCpf() == username && f.getSenha()==senha) {
+			if (f.getCpf() == username && f.getSenha() == senha) {
 				f.setUsuarioLogado(true);
 				return true;
 			}
