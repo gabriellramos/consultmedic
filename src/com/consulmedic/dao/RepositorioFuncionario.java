@@ -1,5 +1,6 @@
 package com.consulmedic.dao;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,13 +61,23 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 
 	@Override
 	public boolean login(String username, String senha) {
-		// TODO Auto-generated method stub
+		for (Funcionario f : listaFuncionarios) {
+			if (f.getCpf() == username && f.getSenha()==senha) {
+				f.setUsuarioLogado(true);
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public boolean deslogar(String username) {
-		// TODO Auto-generated method stub
+		for (Funcionario f : listaFuncionarios) {
+			if (f.getCpf() == username && f.isUsuarioLogado()) {
+				f.setUsuarioLogado(false);
+				return true;
+			}
+		}
 		return false;
 	}
 
