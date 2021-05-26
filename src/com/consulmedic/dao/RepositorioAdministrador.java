@@ -28,10 +28,11 @@ public class RepositorioAdministrador{
 		String mensagem = "[nomeClinica] = "+adm.getNomeClinica()+"\n"
 						+ "[enderecoClinica] = "+adm.getEnderecoClinica()+"\n"
 						+ "[telefoneClinica] = "+adm.getTelefoneClinica();
+						
 		return mensagem;
 	}
 	
-	public Administrador getAdministrador() {
-		return this.adm;
+	public void setAdministrador(Administrador adm) {
+		this.adm = adm;
 	}
 }

@@ -11,16 +11,12 @@ public class Funcionario extends Pessoa{
     	setTipoPessoa("funcionario");
     }
     
-    
-
 	@Override
 	public void setCpf(String cpf) {
 		// TODO Auto-generated method stub
 		super.setCpf(cpf);
 		setNomeUsuario();
 	}
-
-
 
 	public String getNomeUsuario() {
 		return nomeUsuario;
@@ -47,6 +43,17 @@ public class Funcionario extends Pessoa{
 
 	public void setMatricula(int matricula) {
 		this.matricula = matricula;
+	}
+
+
+
+	@Override
+	public String toString() {
+		String mensagem = "[usuario] = "+getNomeUsuario()+"\n"
+						+ "[nome] = "+getNome()+"\n"
+						+ "[senha] = "+getSenha()+"\n"
+						+ "[tipoFuncionario] = "+getTipoPessoa();
+		return mensagem;
 	}
     
     

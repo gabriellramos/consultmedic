@@ -7,7 +7,7 @@ public class Medico extends Funcionario{
 	
 	public Medico() {
 		super();
-		// TODO Auto-generated constructor stub
+		setTipoPessoa("medico");
 	}
 
 	public String getCrm() {
