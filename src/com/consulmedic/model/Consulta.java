@@ -9,6 +9,7 @@ public class Consulta {
 	private Timestamp dataAgendamento;
 	private Timestamp dataConsulta;
 	private boolean consultaRealizada;
+	private String turnoConsulta;
 
 	public Consulta() {
 		this.consultaRealizada = false;
@@ -61,7 +62,13 @@ public class Consulta {
 	public void setConsultaRealizada(boolean consultaRealizada) {
 		this.consultaRealizada = consultaRealizada;
 	}
-	
-	
+
+	public String getTurnoConsulta() {
+		return turnoConsulta;
+	}
+
+	public void setTurnoConsulta(String turnoConsulta) {
+		this.turnoConsulta = turnoConsulta;
+	}
 
 }
