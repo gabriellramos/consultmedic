@@ -7,9 +7,58 @@ public class Agenda {
 	private Medico medico;
 	private Paciente paciente;
 	private Timestamp dataAgendamento;
-	
+	private Timestamp dataConsulta;
+	private Consulta consulta;
+
 	public Agenda() {
-		// TODO Auto-generated constructor stub
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+	public Timestamp getDataAgendamento() {
+		return dataAgendamento;
+	}
+
+	public void setDataAgendamento(Timestamp dataAgendamento) {
+		this.dataAgendamento = dataAgendamento;
+	}
+
+	public Timestamp getDataConsulta() {
+		return dataConsulta;
+	}
+
+	public void setDataConsulta(Timestamp dataConsulta) {
+		this.dataConsulta = dataConsulta;
+	}
+
+	public Consulta getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(Consulta consulta) {
+		this.consulta = consulta;
 	}
 
 }
