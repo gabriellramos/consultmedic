@@ -1,6 +1,6 @@
 package com.consulmedic.model;
 
-public class Paciente extends Pessoa {
+public class Paciente extends Pessoa{
 	private String cartaoSus;
 	private Prontuario prontuarioPaciente;
 	private String dataRegistro;

@@ -32,7 +32,7 @@ public class TesteClinica {
 		administrador.inserirInfoClinica("Clinica dos Prazeres da Vida", "Rua dos Amantes", "4002-8922");
 		
 		f2.setCpf("1234");
-		f2.setNome("Func1");
+		f2.setNome("zunc1");
 		f2.setSenha("000");
 		funcionarios.salvaFuncionario(f2);
 		
@@ -44,7 +44,7 @@ public class TesteClinica {
 		medicos.salvaMedico(medico);
 		
 		
-		
+		funcionarios.listarFuncionarios().sort(null);
 		listarFuncionarios(funcionarios);
 	}
 	

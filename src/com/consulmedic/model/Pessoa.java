@@ -1,6 +1,6 @@
 package com.consulmedic.model;
 
-public class Pessoa {
+public class Pessoa implements Comparable<Pessoa>{
 	private String nome;
 	private String endereco;
 	private String telefone;
@@ -68,5 +68,11 @@ public class Pessoa {
 		this.tipoPessoa = tipoPessoa;
 	}
 
+	@Override
+	public int compareTo(Pessoa pessoa) {
+		return this.nome.compareTo(pessoa.nome);
+	}
+
+	
 	
 }
