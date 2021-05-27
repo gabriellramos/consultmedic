@@ -15,8 +15,21 @@ public class RepositorioAgenda implements IRepositorioAgenda {
 
 	@Override
 	public boolean cadastrar(Agenda agenda) {
-		
-		return false;
+		try {
+			boolean horarioDisponivel = true;
+			for (Agenda a : agendamentos()) {
+				if (a.getDataConsulta() == agenda.getDataConsulta()) {
+					horarioDisponivel = false;
+					return horarioDisponivel;
+				}	
+			}
+			if (horarioDisponivel)
+				agendamentos.add(agenda);
+			
+		}catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -33,8 +46,7 @@ public class RepositorioAgenda implements IRepositorioAgenda {
 
 	@Override
 	public List<Agenda> agendamentos() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.agendamentos;
 	}
 
 }
