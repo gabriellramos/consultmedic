@@ -29,10 +29,10 @@ public class TesteClinica {
 		funcionarios.salvaFuncionario(f1);
 		
 		administrador.setAdministrador(f1);
-		administrador.inserirInfoClinica("Clinica dos Prazeres da Vida", "Rua dos Amantes", "4002-8922");
+		administrador.inserirInfoClinica("Clinica da Vida", "Rua dos Estudantes", "4002-8922");
 		
 		f2.setCpf("1234");
-		f2.setNome("zunc1");
+		f2.setNome("func1");
 		f2.setSenha("000");
 		funcionarios.salvaFuncionario(f2);
 		
