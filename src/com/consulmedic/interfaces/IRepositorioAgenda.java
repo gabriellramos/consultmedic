@@ -10,7 +10,7 @@ public interface IRepositorioAgenda {
 
 	public boolean editar(Agenda agenda);
 
-	public boolean excluir(Agenda agenda);
+	public boolean cancelar(Agenda agenda);
 
 	public List<Agenda> agendamentos();
 

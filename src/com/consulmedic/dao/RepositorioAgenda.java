@@ -16,17 +16,25 @@ public class RepositorioAgenda implements IRepositorioAgenda {
 	@Override
 	public boolean cadastrar(Agenda agenda) {
 		try {
+			/*
+			 * faz o agendamento verificando o horario da consulta escolhido. se o horário
+			 * estiver ocupado, não será possível realizar o agendamento
+			 */
 			boolean horarioDisponivel = true;
+			int id;
 			for (Agenda a : agendamentos()) {
 				if (a.getDataConsulta() == agenda.getDataConsulta()) {
 					horarioDisponivel = false;
-					return horarioDisponivel;
-				}	
+				}
 			}
+
+			id = agendamentos.size() + 1;
+			agenda.setId(id);
+
 			if (horarioDisponivel)
 				agendamentos.add(agenda);
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			return false;
 		}
 		return true;
@@ -34,13 +42,27 @@ public class RepositorioAgenda implements IRepositorioAgenda {
 
 	@Override
 	public boolean editar(Agenda agenda) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean horarioDisponivel = true;
+		for (Agenda a : agendamentos()) {
+			if (a.getDataConsulta() == agenda.getDataConsulta()) {
+				horarioDisponivel = false;
+				return horarioDisponivel;
+			}
+		}
+		if (horarioDisponivel) {
+			agendamentos.get(agenda.getId() - 1).setDataConsulta(agenda.getDataConsulta());
+		}
+		return true;
 	}
 
 	@Override
-	public boolean excluir(Agenda agenda) {
-		// TODO Auto-generated method stub
+	public boolean cancelar(Agenda agenda) {
+		for (Agenda a : agendamentos()) {
+			if (a.getId() == agenda.getId()) {
+				agendamentos.remove(a);
+				return true;
+			}
+		}
 		return false;
 	}
 
