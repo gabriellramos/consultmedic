@@ -9,6 +9,8 @@ public class Prontuario {
 	private String cpfPaciente;
 	private String nome;
 
+	public Prontuario() {}
+	
 	public Prontuario(String cpfString, String nome) {
 		descricaoConsultas = new ArrayList<>();
 		setNome(nome);

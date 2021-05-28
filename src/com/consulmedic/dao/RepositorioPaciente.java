@@ -10,8 +10,7 @@ import com.consulmedic.model.Paciente;
 public class RepositorioPaciente implements IRepositorioPaciente{
 	
 	List<Paciente> listaPacientes = new ArrayList<>();
-	RepositorioPessoa repPessoas = new RepositorioPessoa();
-	
+	RepositorioProntuario repoProntuario = new RepositorioProntuario();
 	
 
 	@Override
