@@ -1,22 +1,26 @@
 package teste;
 
+import java.sql.Connection;
+
 import com.consulmedic.dao.RepositorioAdministrador;
 import com.consulmedic.dao.RepositorioFuncionario;
 import com.consulmedic.dao.RepositorioMedico;
 import com.consulmedic.dao.RepositorioPaciente;
+import com.consulmedic.factory.ConnectionFactory;
 import com.consulmedic.model.Administrador;
 import com.consulmedic.model.Funcionario;
 import com.consulmedic.model.Medico;
 import com.consulmedic.model.Paciente;
 
 public class TesteClinica {
-
+/*
 	public static void main(String[] args) {
-		//RepositorioPaciente pacientes = new RepositorioPaciente();
+		RepositorioPaciente pacientes = new RepositorioPaciente();
 		RepositorioFuncionario funcionarios = new RepositorioFuncionario();
 		RepositorioAdministrador administrador = new RepositorioAdministrador();
 		RepositorioMedico medicos = new RepositorioMedico();
 		
+	
 		Medico medico = new Medico();
 		Administrador f1 = new Administrador();
 		Funcionario f2 = new Funcionario();
@@ -46,8 +50,10 @@ public class TesteClinica {
 		
 		funcionarios.listarFuncionarios().sort(null);
 		listarFuncionarios(funcionarios);
+		
+		
 	}
-	
+	*/
 	public static void listarFuncionarios(RepositorioFuncionario rp) {
 		for (Funcionario p : rp.listarFuncionarios()) {
 			System.out.println(p.toString());

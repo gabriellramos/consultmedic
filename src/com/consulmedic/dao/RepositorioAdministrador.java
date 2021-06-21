@@ -1,8 +1,11 @@
 package com.consulmedic.dao;
 
+
+import com.consulmedic.factory.ConnectionFactory;
 import com.consulmedic.model.Administrador;
 
 public class RepositorioAdministrador{
+	
 	Administrador adm;
 	
 	public RepositorioAdministrador() {
@@ -13,6 +16,7 @@ public class RepositorioAdministrador{
 		adm.setNomeClinica(nomeClinica);
 		adm.setEnderecoClinica(enderecoClinica);
 		adm.setTelefoneClinica(telefoneClinica);
+		
 		return true;
 	}
 
