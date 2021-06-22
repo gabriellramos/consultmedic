@@ -13,7 +13,7 @@ import com.consulmedic.model.Medico;
 import com.consulmedic.model.Paciente;
 
 public class TesteClinica {
-/*
+
 	public static void main(String[] args) {
 		RepositorioPaciente pacientes = new RepositorioPaciente();
 		RepositorioFuncionario funcionarios = new RepositorioFuncionario();
@@ -53,7 +53,7 @@ public class TesteClinica {
 		
 		
 	}
-	*/
+	
 	public static void listarFuncionarios(RepositorioFuncionario rp) {
 		for (Funcionario p : rp.listarFuncionarios()) {
 			System.out.println(p.toString());

@@ -1,11 +1,13 @@
 package com.consulmedic.dao;
 
 
+import java.sql.Connection;
+
 import com.consulmedic.factory.ConnectionFactory;
 import com.consulmedic.model.Administrador;
 
 public class RepositorioAdministrador{
-	
+	public Connection conexao; 
 	Administrador adm;
 	
 	public RepositorioAdministrador() {
@@ -13,6 +15,7 @@ public class RepositorioAdministrador{
 	}
 
 	public boolean inserirInfoClinica(String nomeClinica, String enderecoClinica, String telefoneClinica) {
+		
 		adm.setNomeClinica(nomeClinica);
 		adm.setEnderecoClinica(enderecoClinica);
 		adm.setTelefoneClinica(telefoneClinica);

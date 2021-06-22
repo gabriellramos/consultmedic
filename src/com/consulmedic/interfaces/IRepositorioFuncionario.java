@@ -9,7 +9,7 @@ public interface IRepositorioFuncionario {
 	public boolean salvaFuncionario(Funcionario funcionario);
 	public boolean deletarFuncionarioPorCPF(String cpf);
 	public List<Funcionario> listarFuncionarios();
-	public boolean alteraFuncionario(Funcionario funcionario);
+	public boolean alteraFuncionario(Funcionario funcionario, String cpf);
 	
 	
 	public boolean login(String username, String senha);

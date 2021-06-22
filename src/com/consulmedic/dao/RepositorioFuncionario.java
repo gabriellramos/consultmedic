@@ -24,10 +24,12 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 		try {
 			boolean cadastrado = false;
 			conexao = new ConnectionFactory().createConnectionToPostgreSQL();
-			listaFuncionarios = listarFuncionarios();
+			// listaFuncionarios = listarFuncionarios();
 
 			for (Funcionario f : listaFuncionarios) {
-				if (funcionario.getCpf() == f.getCpf()) {
+
+				if (funcionario.getCpf().compareTo(f.getCpf()) == 0) {
+
 					cadastrado = true;
 					break;
 				} else
@@ -40,7 +42,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 				// mandar para o banco
 
 				conexao = new ConnectionFactory().createConnectionToPostgreSQL();
-				String sql = "INSERT INTO FUNCIONARIOS "
+				String sql = "INSERT INTO funcionario "
 						+ "(cpf, endereco,telefone,nome,datanascimento,idade,tipopessoa,nomeusuario,senha, usuariologado)"
 						+ "VALUES (?,?,?,?,?,?,?,?,?,?);";
 				PreparedStatement statement = (PreparedStatement) conexao.prepareStatement(sql);
@@ -69,19 +71,21 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 
 	@Override
 	public boolean deletarFuncionarioPorCPF(String cpf) {
-		conexao = new ConnectionFactory().createConnectionToPostgreSQL();
 
 		String sql = "DELETE FROM funcionario WHERE cpf = ?";
 		try {
 			listaFuncionarios = listarFuncionarios();
 
 			for (Funcionario funcionario : listaFuncionarios)
-				if (funcionario.getCpf() == cpf) {
+				if (funcionario.getCpf().compareTo(cpf) == 0) {
+					System.out.println("entrou");
+					System.out.println("apagou funcionario");
+					conexao = new ConnectionFactory().createConnectionToPostgreSQL();
 					PreparedStatement statement = (PreparedStatement) conexao.prepareStatement(sql);
 					statement.setString(1, cpf);
 
-					// statement.execute();
-					rs = statement.executeQuery();
+					statement.execute();
+
 					conexao.close();
 					return true;
 				}
@@ -96,7 +100,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 	@Override
 	public List<Funcionario> listarFuncionarios() {
 		try {
-
+			listaFuncionarios.clear();
 			conexao = new ConnectionFactory().createConnectionToPostgreSQL();
 			String sql = "SELECT * FROM funcionario";
 			PreparedStatement statement = (PreparedStatement) conexao.prepareStatement(sql);
@@ -122,17 +126,17 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 	}
 
 	@Override
-	public boolean alteraFuncionario(Funcionario funcionario) {
+	public boolean alteraFuncionario(Funcionario funcionario, String cpf) {
 		listaFuncionarios = listarFuncionarios();
 		PreparedStatement statement;
 
 		for (Funcionario f : listaFuncionarios) {
-			if (funcionario.getCpf() == f.getCpf()) {
+			if (cpf.compareTo(f.getCpf()) == 0) {
 				try {
 					conexao = new ConnectionFactory().createConnectionToPostgreSQL();
 					String sql = "UPDATE funcionario" + "SET endereco = ?,telefone = ?,"
 							+ "nome = ? ,datanascimento = ?," + "idade = ?, tipopessoa = ?,"
-							+ "nomeusuario = ?, senha = ?, usuariologado = ?" + "WHERE cpf = ?;";
+							+ "nomeusuario = ?, senha = ?, usuariologado = ?, cpf = ?" + "WHERE cpf = ?;";
 
 					statement = conexao.prepareStatement(sql);
 					statement.setString(1, funcionario.getEndereco());
@@ -144,6 +148,8 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 					statement.setString(7, funcionario.getNomeUsuario());
 					statement.setString(8, funcionario.getSenha());
 					statement.setBoolean(9, funcionario.isUsuarioLogado());
+					statement.setString(10, funcionario.getCpf());
+					statement.setString(11, cpf);
 
 					statement.execute();
 					conexao.close();
@@ -161,7 +167,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 	public boolean login(String username, String senha) {
 		listaFuncionarios = listarFuncionarios();
 		for (Funcionario f : listaFuncionarios) {
-			if (f.getCpf() == username && f.getSenha() == senha) {
+			if (f.getCpf().compareTo(username) == 0 && f.getSenha().compareTo(senha) == 0) {
 				try {
 					conexao = new ConnectionFactory().createConnectionToPostgreSQL();
 					String sql = "UPDATE funcionario set usuariologado = ? WHERE nomeusuario = ?;";

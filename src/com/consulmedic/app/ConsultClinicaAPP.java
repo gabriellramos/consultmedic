@@ -7,27 +7,45 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.consulmedic.dao.*;
 import com.consulmedic.factory.ConnectionFactory;
 import com.consulmedic.model.*;
 
 public class ConsultClinicaAPP {
 
 	public static Connection conexao;
+	public static final RepositorioFuncionario repoFunc = new RepositorioFuncionario();
+	public static final RepositorioMedico repoMedico = new RepositorioMedico();
+	public static final RepositorioPaciente repoPaciente = new RepositorioPaciente();
 	
 	public static void main(String[] args) throws SQLException{
+		
+		Funcionario adm = new Administrador();
+		
 		inicializaSistema();
 	}
 	
 	public static void inicializaSistema() throws SQLException{
 		//inicializando sistema cadastrando administrador
-		Funcionario adm = new Administrador();
+		Administrador adm = new Administrador();
 		ResultSet rs;
-		conexao = ConnectionFactory().createConnectionToPostgreSQL();
+		conexao = new ConnectionFactory().createConnectionToPostgreSQL();
 		
 		adm.setNome("admin");
 		adm.setCpf("00000000000");
 		adm.setSenha("admin");
 		
+		
+		System.out.println("Salvando funcionario tipo ADM");
+		repoFunc.salvaFuncionario(adm);
+		listarFuncionarios(repoFunc);
+		adm.setCpf("02108343237");
+		adm.setNome("Gabriel Ramos Nascimento");
+		repoFunc.alteraFuncionario(adm,"00000000000");
+		listarFuncionarios(repoFunc);
+		
+		//listarFuncionarios(repoFunc);
+		/*
 		String sql = "SELECT * FROM administrador;";
 		
 		try {
@@ -57,11 +75,14 @@ public class ConsultClinicaAPP {
 		}catch(Exception e) {
 			Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, e);
 		}
+		*/
 	}
 
-	private static ConnectionFactory ConnectionFactory() {
-		// TODO Auto-generated method stub
-		return null;
+	public static void listarFuncionarios(RepositorioFuncionario rp) {
+		rp.listarFuncionarios();
+		for (Funcionario p : rp.listarFuncionarios()) {
+			System.out.println(p.toString());
+			System.out.println("---------------------------------------");
+		}
 	}
-
 }
