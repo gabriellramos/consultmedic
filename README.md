@@ -4,4 +4,3 @@ Projeto em Java da Disciplina Programação Orientada a Objetos sob a orientaç�
 Integrantes:
 Carlos Eduardo
 Gabriel Ramos
-Karla Lorena
