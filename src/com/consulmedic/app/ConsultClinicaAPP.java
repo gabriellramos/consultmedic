@@ -19,6 +19,7 @@ public class ConsultClinicaAPP {
 	public static final RepositorioFuncionario repoFunc = new RepositorioFuncionario();
 	public static final RepositorioMedico repoMedico = new RepositorioMedico();
 	public static final RepositorioPaciente repoPaciente = new RepositorioPaciente();
+	public static final RepositorioAdministrador repoAdm = new RepositorioAdministrador();
 	public static final Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws SQLException {
@@ -30,7 +31,7 @@ public class ConsultClinicaAPP {
 			inicializaSistema();
 		do {
 			if (repoFunc.buscaFuncPorCpf("00000000000")) {
-				
+				alteraDadosAdm();
 			}
 		} while (continua);
 	}
@@ -39,8 +40,7 @@ public class ConsultClinicaAPP {
 		System.out.println("Inicializando Sistema");
 		// inicializando sistema cadastrando administrador
 		Administrador adm = new Administrador();
-		conexao = new ConnectionFactory().createConnectionToPostgreSQL();
-		
+
 		adm.setNome("admin");
 		adm.setCpf("00000000000");
 		adm.setSenha("admin");
@@ -105,16 +105,64 @@ public class ConsultClinicaAPP {
 				System.out.println("\n\nLISTANDO FUNCIONARIOS\n");
 				listarFuncionarios(repoFunc);
 				break;
-			case 2: 
+			case 2:
 				Funcionario func = new Funcionario();
 				System.out.println("CADASTRAR NOVO FUNCIONARIO");
-				
+
 				break;
 			}
 		} while (op != 5);
 	}
-	
-	public static void alteraDadosAdm() {
+
+	public static void alteraDadosAdmInicio() {
+		Administrador adm = new Administrador();
+		System.out.println("INSIRA OS DADOS DO ADMINISTRADOR DA CLINICA");
+		System.out.println("Nome: ");
+		adm.setNome(scanner.nextLine());
+
+		do {
+			System.out.println("CPF: ");
+			adm.setCpf(scanner.nextLine());
+		} while (!somenteNumeros(adm.getCpf()));
+
+		System.out.println("Endereço: ");
+		adm.setEndereco(scanner.nextLine());
+		System.out.println("Telefone: ");
+		adm.setTelefone(scanner.nextLine());
+		System.out.println("Data de Nascimento: ");
+		System.out.println("\tDia: ");
+		int dia = scanner.nextInt();
+		System.out.println("Mes: ");
+		int mes = scanner.nextInt();
+		System.out.println("Ano: ");
+		int ano = scanner.nextInt();
+		adm.setDataNascimento(mes + "-" + dia + "-" + ano);
+		System.out.println("Idade: ");
+		adm.setIdade(scanner.nextInt());
+		System.out.println("\nDADOS DA CLINICA\n");
+		System.out.println("Nome da CLinica: ");
+		adm.setNomeClinica(scanner.nextLine());
+		System.out.println("Endereço: ");
+		adm.setEnderecoClinica(scanner.nextLine());
+		System.out.println("Telefone: ");
+		adm.setTelefoneClinica(scanner.nextLine());
 		
+		repoAdm.alteraAdm(adm, "0000000000");
+		
+	}
+
+	public static boolean somenteNumeros(String cpf) {
+		boolean numero = false;
+		char[] cpfArray = new char[cpf.length()];
+
+		for (char letra : cpfArray) {
+			if (letra >= 48 && letra <= 57)
+				numero = true;
+			else {
+				numero = false;
+				break;
+			}
+		}
+		return numero;
 	}
 }

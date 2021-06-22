@@ -41,7 +41,7 @@ public class RepositorioAdministrador{
 		return mensagem;
 	}
 	
-	public void setAdministrador() {
+	public void getAdministrador() {
 		conexao = new ConnectionFactory().createConnectionToPostgreSQL();
 		String sql = "SELECT * FROM administrador;";
 		try {
@@ -58,6 +58,21 @@ public class RepositorioAdministrador{
 			
 		}
 		
+	}
+	
+	public void alteraAdm(Administrador adm, String cpf) {
+		conexao = new ConnectionFactory().createConnectionToPostgreSQL();
+		String sql = "UPDATE administrador SET cpf = ?, "
+				+ "endereco = ?, telefone = ?, nome = ?, datanascimento = ?, "
+				+ "idade = ?, nomeusuario = ?, senha = ?, usuariologado = ?, "
+				+ "nomeclinica = ?, enderecoclinica = ?, telefoneclinica = ?"
+				+ "WHERE cpf = ?;";
+		try {
+			PreparedStatement statement = (PreparedStatement) conexao.prepareStatement(sql);
+			
+		}catch(Exception e) {
+			
+		}
 	}
 
 }
