@@ -20,11 +20,11 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 
 	@Override
 	public boolean salvaFuncionario(Funcionario funcionario) {
-
+		boolean cadastrado = false;
 		try {
-			boolean cadastrado = false;
+			
 			conexao = new ConnectionFactory().createConnectionToPostgreSQL();
-			// listaFuncionarios = listarFuncionarios();
+			listaFuncionarios = listarFuncionarios();
 
 			for (Funcionario f : listaFuncionarios) {
 
@@ -36,7 +36,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 					cadastrado = false;
 
 			}
-
+			System.out.println(cadastrado);
 			if (!cadastrado) {
 
 				// mandar para o banco
@@ -59,14 +59,13 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 
 				statement.execute();
 				conexao.close();
+				return true;
 			}
 
 		} catch (Exception e) {
 			Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, e);
-			return false;
 		}
-
-		return true;
+		return false;
 	}
 
 	@Override
@@ -100,7 +99,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 	@Override
 	public List<Funcionario> listarFuncionarios() {
 		try {
-			listaFuncionarios.clear();
+			listaFuncionarios.removeAll(listaFuncionarios);
 			new ConnectionFactory();
 			conexao = ConnectionFactory.createConnectionToPostgreSQL();
 			String sql = "SELECT * FROM funcionario";
@@ -190,9 +189,32 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 
 	@Override
 	public boolean deslogar(String username) {
+		listaFuncionarios = listarFuncionarios();
 		for (Funcionario f : listaFuncionarios) {
+			
 			if (f.getCpf() == username && f.isUsuarioLogado()) {
-				f.setUsuarioLogado(false);
+				try {
+					conexao = new ConnectionFactory().createConnectionToPostgreSQL();
+					String sql = "UPDATE funcionario set usuariologado = ? WHERE nomeusuario = ?;";
+					PreparedStatement statement = (PreparedStatement) conexao.prepareStatement(sql);
+					statement.setBoolean(1, false);
+					statement.setString(2, username);
+					statement.execute();
+					conexao.close();
+					return true;
+				} catch (Exception e) {
+					Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, e);
+				}
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean buscaFuncPorCpf(String cpf) {
+		listaFuncionarios = listarFuncionarios();
+		for (Funcionario f : listaFuncionarios) {
+			if (f.getCpf().compareTo(cpf) == 0) {
 				return true;
 			}
 		}

@@ -10,6 +10,7 @@ public interface IRepositorioFuncionario {
 	public boolean deletarFuncionarioPorCPF(String cpf);
 	public List<Funcionario> listarFuncionarios();
 	public boolean alteraFuncionario(Funcionario funcionario, String cpf);
+	public boolean buscaFuncPorCpf(String cpf);
 	
 	
 	public boolean login(String username, String senha);

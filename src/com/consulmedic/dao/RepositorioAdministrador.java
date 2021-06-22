@@ -2,6 +2,8 @@ package com.consulmedic.dao;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.consulmedic.factory.ConnectionFactory;
 import com.consulmedic.model.Administrador;
@@ -39,7 +41,23 @@ public class RepositorioAdministrador{
 		return mensagem;
 	}
 	
-	public void setAdministrador(Administrador adm) {
-		this.adm = adm;
+	public void setAdministrador() {
+		conexao = new ConnectionFactory().createConnectionToPostgreSQL();
+		String sql = "SELECT * FROM administrador;";
+		try {
+			PreparedStatement statement = (PreparedStatement) conexao.prepareStatement(sql) ;
+			ResultSet rs = statement.executeQuery();
+			statement.execute();
+			conexao.close();
+			Administrador adm = new Administrador();
+			adm.setCpf(rs.getString("cpf"));
+			adm.setNome(rs.getString("nome"));
+			adm.setSenha(rs.getString("senha"));
+			this.adm = adm;
+		}catch(Exception e) {
+			
+		}
+		
 	}
+
 }

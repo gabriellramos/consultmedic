@@ -1,9 +1,11 @@
 package com.consulmedic.app;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,65 +19,33 @@ public class ConsultClinicaAPP {
 	public static final RepositorioFuncionario repoFunc = new RepositorioFuncionario();
 	public static final RepositorioMedico repoMedico = new RepositorioMedico();
 	public static final RepositorioPaciente repoPaciente = new RepositorioPaciente();
-	
-	public static void main(String[] args) throws SQLException{
-		
+	public static final Scanner scanner = new Scanner(System.in);
+
+	public static void main(String[] args) throws SQLException {
+
 		Funcionario adm = new Administrador();
-		
-		inicializaSistema();
+		boolean continua = true;
+
+		if (repoFunc.listarFuncionarios().isEmpty())
+			inicializaSistema();
+		do {
+			if (repoFunc.buscaFuncPorCpf("00000000000")) {
+				
+			}
+		} while (continua);
 	}
-	
-	public static void inicializaSistema() throws SQLException{
-		//inicializando sistema cadastrando administrador
+
+	public static void inicializaSistema() throws SQLException {
+		System.out.println("Inicializando Sistema");
+		// inicializando sistema cadastrando administrador
 		Administrador adm = new Administrador();
-		ResultSet rs;
 		conexao = new ConnectionFactory().createConnectionToPostgreSQL();
 		
 		adm.setNome("admin");
 		adm.setCpf("00000000000");
 		adm.setSenha("admin");
-		
-		
-		System.out.println("Salvando funcionario tipo ADM");
+
 		repoFunc.salvaFuncionario(adm);
-		listarFuncionarios(repoFunc);
-		adm.setCpf("02108343237");
-		adm.setNome("Gabriel Ramos Nascimento");
-		repoFunc.alteraFuncionario(adm,"00000000000");
-		listarFuncionarios(repoFunc);
-		
-		//listarFuncionarios(repoFunc);
-		/*
-		String sql = "SELECT * FROM administrador;";
-		
-		try {
-			PreparedStatement statement = (PreparedStatement) conexao.prepareStatement(sql);
-			
-			statement.execute();
-			System.out.println("FOi");
-			rs = statement.executeQuery();
-			
-			conexao.close();
-			System.out.println(rs.getRow());
-			if (rs.getRow() == 0) {
-				conexao = ConnectionFactory().createConnectionToPostgreSQL();
-				
-				sql = "INSERT INTO administrador (nome, cpf, senha, tipopessoa, usuariologado) VALUES (?,?,?,?,?);";
-				statement = (PreparedStatement) conexao.prepareStatement(sql);
-				statement.setString(1, adm.getNome());
-				statement.setString(2, adm.getCpf());
-				statement.setString(3, adm.getSenha());
-				statement.setString(4,adm.getTipoPessoa());
-				statement.setBoolean(5, false);
-				
-				statement.execute();
-				System.out.println("Cadastrou usuário inicial no banco");
-			}
-			
-		}catch(Exception e) {
-			Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, e);
-		}
-		*/
 	}
 
 	public static void listarFuncionarios(RepositorioFuncionario rp) {
@@ -84,5 +54,67 @@ public class ConsultClinicaAPP {
 			System.out.println(p.toString());
 			System.out.println("---------------------------------------");
 		}
+	}
+
+	public static void limpaConsole() throws InterruptedException, IOException {
+		// Limpa a tela no windows, no linux e no MacOS
+		if (System.getProperty("os.name").contains("Windows"))
+			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		else
+			Runtime.getRuntime().exec("clear");
+	}
+
+	public static void menuPrincipalAdm() {
+		int op = 1;
+		do {
+			do {
+				System.out.println("SISTEMA DE CONSULTAS");
+				System.out.println("1 - Gerenciar Funcionarios");
+				System.out.println("2 - Gerenciar Pacientes");
+				System.out.println("3 - Gerenciar Consultas");
+				System.out.println("4 - Deslogar");
+				System.out.println("5 - Sair do sistema");
+				System.out.println("Insira sua opção: ");
+				op = scanner.nextInt();
+			} while (op <= 1 && op > 5);
+
+			switch (op) {
+			case 1:
+				gerenciaFuncionarios();
+				break;
+			}
+		} while (op != 4);
+	}
+
+	public static void gerenciaFuncionarios() {
+		int op = 1;
+		do {
+			do {
+				System.out.println("FUNCIONARIOS");
+				System.out.println("1 - Listar Funcionarios");
+				System.out.println("2 - Cadastrar Funcionarios");
+				System.out.println("3 - Deletar Funcionario");
+				System.out.println("4 - Alterar Funcionario");
+				System.out.println("5 - Voltar ao menu principal");
+				System.out.println("Insira sua opção: ");
+				op = scanner.nextInt();
+			} while (op <= 1 && op > 5);
+
+			switch (op) {
+			case 1:
+				System.out.println("\n\nLISTANDO FUNCIONARIOS\n");
+				listarFuncionarios(repoFunc);
+				break;
+			case 2: 
+				Funcionario func = new Funcionario();
+				System.out.println("CADASTRAR NOVO FUNCIONARIO");
+				
+				break;
+			}
+		} while (op != 5);
+	}
+	
+	public static void alteraDadosAdm() {
+		
 	}
 }
