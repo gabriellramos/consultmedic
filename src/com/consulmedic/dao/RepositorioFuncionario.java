@@ -101,7 +101,8 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 	public List<Funcionario> listarFuncionarios() {
 		try {
 			listaFuncionarios.clear();
-			conexao = new ConnectionFactory().createConnectionToPostgreSQL();
+			new ConnectionFactory();
+			conexao = ConnectionFactory.createConnectionToPostgreSQL();
 			String sql = "SELECT * FROM funcionario";
 			PreparedStatement statement = (PreparedStatement) conexao.prepareStatement(sql);
 			rs = statement.executeQuery();
@@ -133,10 +134,11 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 		for (Funcionario f : listaFuncionarios) {
 			if (cpf.compareTo(f.getCpf()) == 0) {
 				try {
-					conexao = new ConnectionFactory().createConnectionToPostgreSQL();
-					String sql = "UPDATE funcionario" + "SET endereco = ?,telefone = ?,"
-							+ "nome = ? ,datanascimento = ?," + "idade = ?, tipopessoa = ?,"
-							+ "nomeusuario = ?, senha = ?, usuariologado = ?, cpf = ?" + "WHERE cpf = ?;";
+					new ConnectionFactory();
+					conexao = ConnectionFactory.createConnectionToPostgreSQL();
+					String sql = "UPDATE funcionario SET endereco = ?,telefone = ?,"
+							+ "nome = ? ,datanascimento = ?,idade = ?, tipopessoa = ?,"
+							+ "nomeusuario = ?, senha = ?, usuariologado = ?, cpf = ? WHERE cpf = ?;";
 
 					statement = conexao.prepareStatement(sql);
 					statement.setString(1, funcionario.getEndereco());
